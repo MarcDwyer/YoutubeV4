@@ -1,0 +1,25 @@
+{
+  "name": "newbackend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "client": "cd public/twitchclone && yarn start",
+    "dev": "concurrently --kill-others-on-fail \"yarn start\" \"yarn client\"",
+    "server": "nodemon server.js"
+  },
+  "dependencies": {
+    "body-parse": "^0.1.0",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "fs": "0.0.1-security",
+    "node-fetch": "^2.2.0",
+    "nodemon": "^1.18.4"
+  },
+  "author": "Marc Dwyer",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^3.5.0"
+  }
+}
