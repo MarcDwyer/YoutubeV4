@@ -1,3 +1,8 @@
+:root {
+  --navcolor: #38435a;
+  --navigator: #2C3548;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -6,9 +11,16 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #191b22;
+  background-color: #191919;
   overflow: hidden;
 }
+::-webkit-scrollbar { 
+  background-color: #323232;
+  width: 10px;
+ }
+ ::-webkit-scrollbar-thumb { 
+  background-color: #888888;
+ }
 .maindiv {
   display: flex;
   flex-wrap: nowrap;
@@ -18,12 +30,11 @@ code {
     monospace;
 }
 nav {
-  background-color: #2C3548 !important;
+  background-color: #282828 !important;
   color: white;
 }
-
 .navigator {
-  background-color: #38435a;
+  background-color: #202020;
   height: calc(100vh - 50px);
   flex: 0 0 250px;
   color: white;
@@ -54,14 +65,15 @@ nav {
   margin-bottom: auto;
 }
 .streamer:hover {
-  background-color: #2C3548;
+  background-color: #4B556A;
   cursor: pointer;
 }
 .streamer img {
   border-radius: 50%;
   width: 40px;
-  height: 100%;
+  height: 40px;
 }
+
 .streamname {
   display: flex;
   flex-direction: column; 
@@ -74,8 +86,8 @@ nav {
 .actuallist {
   margin-top: 5px;
   margin-bottom: 5px;
-  border-top: solid 1px #2C3548;
-  border-bottom: solid 1px #2C3548;
+  border-top: solid 1px #464646;
+  border-bottom: solid 1px #464646;
 }
 .showmore {
   cursor: pointer;
@@ -94,14 +106,24 @@ nav {
   display: flex;
   flex-wrap: nowrap;
   width: 100%;
+  color: white;
 }
 .videoparent {
-  width: 100%;
-  
+  width: 90%;
   overflow-y: auto;
 }
+.margincontent {
+  display: flex;
+  flex-direction: column;
+  width: 98%;
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5px;
+}
 .actualvideo {
-  height:90%;
+  height: 100%;
+  width: 100%;
   display: flex;
 
 }
@@ -116,4 +138,18 @@ nav {
 .chatter iframe {
   width: 100%;
   height: 100%;
+}
+
+.videocontent {
+  display: flex;
+  position: relative;
+  width: 100%;
+}
+.videocontent span {
+  position: absolute;
+  right: 10px;
+  bottom: 0;
+}
+.body {
+  margin-top: 15px;
 }

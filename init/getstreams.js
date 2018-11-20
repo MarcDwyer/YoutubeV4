@@ -8,7 +8,6 @@ const fetch = require('node-fetch');
     const streamList = [
       {name:'Ice', channelId: 'UCv9Edl_WbtbPeURPtFDo-uA'},
       {name:'Mixhound', channelId: 'UC_jxnWLGJ2eQK4en3UblKEw'},
-      {name:'Tsa', channelId: 'UCB0H_1M78_jwTyfaJuP241g'},
       {name:'Destiny', channelId: 'UC554eY5jNUfDq3yDOJYirOQ'},
       {name:'Hyphonix', channelId: 'UC4abN4ZiybnsAXTkTBX7now'},
       {name:'Marie', channelId: 'UC16fss-5fnGp2Drqp1iT9pA'},
@@ -45,15 +44,22 @@ try {
       const vidid = item.items[0].id.videoId;
       const fetchData = await fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics%2CliveStreamingDetails&id=${vidid}&key=${API}`);
       const dataFetch = await fetchData.json();
-      dataFetch.channelId = item.channelId;
-      dataFetch.name = item.name;
-      livetime = dataFetch;
-      return dataFetch;
-  }));
 
-  const filteredData = liveData.filter(item => item.items[0].liveStreamingDetails.concurrentViewers).sort((a, b) => +a.items[0].liveStreamingDetails.concurrentViewers < b.items[0].liveStreamingDetails.concurrentViewers ? 1 : -1);
-  
-  return filteredData;
+
+      const custObj = {
+          name: item.name,
+          channelId: item.channelId,
+          title: dataFetch.items[0].snippet.title,
+          description: dataFetch.items[0].snippet.description,
+          viewers: dataFetch.items[0].liveStreamingDetails.concurrentViewers,
+          stats: dataFetch.items[0].statistics,
+          vidId: dataFetch.items[0].id
+      };
+      return custObj;
+  }));
+  const sortedData = liveData.sort((a, b) => +a.viewers < +b.viewers ? 1 : -1);
+
+  return sortedData;
 } catch(err) {
   console.log(err);
 }

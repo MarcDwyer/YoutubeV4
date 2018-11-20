@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import uuid from 'uuid';
 
 export default class StreamList extends Component {
@@ -11,11 +11,12 @@ export default class StreamList extends Component {
         }
     }
     async componentDidMount() {
-        const fetchData = await fetch('/streamers/all');
-        const dataFetch = await fetchData.json();
-        this.setState({list: dataFetch});
+       const fetchData = await fetch('/streamers/all');
+       const dataFetch = await fetchData.json();
+       this.setState({list: dataFetch});
     }
     render() {
+
         const { list, show } = this.state;
         if (!list) return null;
        return (
