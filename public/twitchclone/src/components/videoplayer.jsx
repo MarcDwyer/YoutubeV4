@@ -18,13 +18,19 @@ export const VideoPlayer = (props) => {
     return (
         <div className="contentmain">
         <div className="videoparent">
+        <div className="videonav">
+        <div className="marginnav">
+        <span><i style={{color: 'green'}} className="fa fa-thumbs-up"></i> {theStream.stats.likeCount}</span>
+        <span><i style={{color: 'red'}} className="fa fa-thumbs-down ml-4"></i> {theStream.stats.dislikeCount}</span>
+        </div>
+        </div>
         <div className="margincontent">
         <div className="actualvideo">
         <iframe src={vidUrl} frameBorder="0"></iframe>
         </div>
         <div className="videocontent mt-2">
         <h4 className="ml-2">{theStream.title}</h4>
-        <span>{viewers} Viewers</span>
+        <span><i style={{color: 'red'}} className="fa fa-circle mr-2 mb-1"></i>{viewers} Viewers</span>
         </div>
         <div className="body">
         <p>{theStream.description}</p>
