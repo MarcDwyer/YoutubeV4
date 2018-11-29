@@ -1,5 +1,5 @@
 const fetch = require('node-fetch');
-// const async_hooks = require('async_hooks');
+const fs = require('fs');
 
 
 
@@ -25,7 +25,8 @@ const fetch = require('node-fetch');
       {name: 'Nasa', channelId: 'UCLA_DiR1FfKNvjuUpBHmylQ'}
     ];
 
-
+    giveList();
+    setInterval(giveList, 500000);
     async function giveList() {
         console.log('running...');
 try {
@@ -36,8 +37,6 @@ try {
       dataFetch.channelId = item.channelId;
       return dataFetch;
   }));
-  allStreams = data;
-
   const liveStreams = data.filter(item => !item.pageInfo.totalResults == 0);
 
   const liveData = await Promise.all(liveStreams.map(async (item) => {
@@ -58,8 +57,10 @@ try {
       return custObj;
   }));
   const sortedData = liveData.sort((a, b) => +a.viewers < +b.viewers ? 1 : -1);
-
-  return sortedData;
+    fs.writeFile('./fetch/livestreams.json', JSON.stringify(sortedData), (err) => {
+        if (err) throw err
+        console.log('File has been saved');
+    })
 } catch(err) {
   console.log(err);
 }
@@ -67,6 +68,5 @@ try {
   }
 
   module.exports = {
-      liveData: giveList,
       streamers: streamList
   };

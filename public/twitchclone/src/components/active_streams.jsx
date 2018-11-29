@@ -1,21 +1,24 @@
 import React, { Component } from 'react'
 import StreamList from './streamlist';
+import { Navbar } from './nav';
 import { VideoPlayer } from './videoplayer';
+// import { Helmet } from "react-helmet";
 import _ from 'lodash';
 import uuid from 'uuid';
 
 export default class ActiveStreams extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
             live: null,
-            stream: null
+            stream: null,
+            dark: true
         }
     }
     async componentDidMount() {
         const fetchData = await fetch('/streamers/live');
         const data = await fetchData.json();
+        console.log(data)
         const newData = _.mapKeys(data, 'channelId');
         this.setState({live: newData});
 
@@ -26,13 +29,24 @@ export default class ActiveStreams extends Component {
             this.setState({live: newData});
         }, 25000);
     }
+    componentDidUpdate(prevProps, prevState) {
+        const { dark } = this.state;
+        if (dark !== prevState.dark) {
+            const darkhover = dark ? '#404040' : '#D6D6D6';
+           document.documentElement.style.setProperty('--streamhover', darkhover);
+        }
+    }
+
     render() {
-        
+        console.log(this.state)
         const { live } = this.state;
         if (!live) return null;
+        const darkTheme = this.state.dark ? 'darkTheme' : 'whiteTheme';
 
         return (
-            <div className="maindiv">
+            <div>
+                <Navbar toggle={this.toggleTheme} theme={this.state.dark} />
+            <div className={`maindiv ${darkTheme}`}>
             <div className="navigator">
                 <div className="streamlist active">
                 <h5 className="online ml-2">Online <small>{Object.keys(this.state.live).length}</small></h5>
@@ -40,11 +54,11 @@ export default class ActiveStreams extends Component {
                     <div className="actuallist">
                     {this.renderStreams()}
                     </div>
-
-                    <StreamList />
+                    <StreamList theme={this.state.dark} />
                 </div>
             </div>
-            <VideoPlayer onStream={this.state.stream} live={this.state.live} />
+            <VideoPlayer onStream={this.state.stream} live={this.state.live} theme={this.state.dark} />
+            </div>
             </div>
         );
     }
@@ -67,5 +81,8 @@ export default class ActiveStreams extends Component {
                 </div>
             );
         })
+    }
+    toggleTheme = () => {
+        this.setState({dark: !this.state.dark})
     }
 }

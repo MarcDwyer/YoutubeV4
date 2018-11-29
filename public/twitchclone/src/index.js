@@ -1,13 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import { Navbar } from './components/nav';
 import ActiveList from './components/active_streams';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
     <div>
-    <Navbar />
     <ActiveList />
     </div>
     , document.getElementById('root'));
