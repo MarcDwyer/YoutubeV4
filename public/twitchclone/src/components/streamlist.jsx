@@ -35,7 +35,7 @@ export default class StreamList extends Component {
         const { list, show } = this.state;
         return list.map((stream, index) => {
             const avatar = `https://s3.us-east-2.amazonaws.com/fetchappbucket/images/${stream.name}.jpg`;
-            if (!show && index >= 6) return;
+            if (!show && index >= 10) return;
             return (
             <div className="streamer" key={uuid()}>
             <div className="substreamer">

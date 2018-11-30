@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import StreamList from './streamlist';
 import { Navbar } from './nav';
 import { VideoPlayer } from './videoplayer';
-// import { Helmet } from "react-helmet";
+import Notifications from './notification'
 import _ from 'lodash';
 import uuid from 'uuid';
 
@@ -18,16 +18,17 @@ export default class ActiveStreams extends Component {
     async componentDidMount() {
         const fetchData = await fetch('/streamers/live');
         const data = await fetchData.json();
-        console.log(data)
+
         const newData = _.mapKeys(data, 'channelId');
         this.setState({live: newData});
 
         this.checker = setInterval(async () => {
+            console.log('runner')
             const fetchData = await fetch('/streamers/live');
             const data = await fetchData.json();
             const newData = _.mapKeys(data, 'channelId');
             this.setState({live: newData});
-        }, 25000);
+        }, 35000);
     }
     componentDidUpdate(prevProps, prevState) {
         const { dark } = this.state;
@@ -38,9 +39,10 @@ export default class ActiveStreams extends Component {
     }
 
     render() {
-        console.log(this.state)
+
         const { live } = this.state;
         if (!live) return null;
+
         const darkTheme = this.state.dark ? 'darkTheme' : 'whiteTheme';
 
         return (
@@ -58,6 +60,7 @@ export default class ActiveStreams extends Component {
                 </div>
             </div>
             <VideoPlayer onStream={this.state.stream} live={this.state.live} theme={this.state.dark} />
+                <Notifications active={this.state.live} />
             </div>
             </div>
         );
