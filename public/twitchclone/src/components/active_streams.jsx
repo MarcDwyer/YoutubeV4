@@ -16,12 +16,19 @@ export default class ActiveStreams extends Component {
         }
     }
     async componentDidMount() {
+        const ls = JSON.parse(localStorage.getItem('dark'));
+        // setting theme
+        if (typeof ls === 'boolean') {
+            this.setState({dark: ls})
+        }
+        // fetching streamer data
         const fetchData = await fetch('/streamers/live');
         const data = await fetchData.json();
 
         const newData = _.mapKeys(data, 'channelId');
         this.setState({live: newData});
 
+        // streamer data updates, local state is set as an object
         this.checker = setInterval(async () => {
 
             const fetchData = await fetch('/streamers/live');
@@ -30,6 +37,7 @@ export default class ActiveStreams extends Component {
             this.setState({live: newData});
         }, 35000);
     }
+    // setting root variables to match theme
     componentDidUpdate(prevProps, prevState) {
         const { dark } = this.state;
         if (dark !== prevState.dark) {
@@ -40,7 +48,8 @@ export default class ActiveStreams extends Component {
 
     render() {
 
-        const { live } = this.state;
+        const { live, dark } = this.state;
+        console.log(dark)
         if (!live) return null;
 
         const darkTheme = this.state.dark ? 'darkTheme' : 'whiteTheme';
@@ -86,6 +95,8 @@ export default class ActiveStreams extends Component {
         })
     }
     toggleTheme = () => {
+        // saving theme setting to localstorage
+        localStorage.setItem('dark', JSON.stringify(!this.state.dark))
         this.setState({dark: !this.state.dark})
     }
 }

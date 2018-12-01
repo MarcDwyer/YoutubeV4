@@ -1,9 +1,9 @@
 const fetch = require('node-fetch');
 const fs = require('fs');
 
+// server acts as middleman between Youtube API and client, this allows me to hide my api key and control requests.
 
-
-    const API = 'AIzaSyBghJmzrFiYYr4ClicgFYHvN4ubVsnJxuE';
+const API = 'AIzaSyBghJmzrFiYYr4ClicgFYHvN4ubVsnJxuE';
 
 const streamList = [
     {name:'Ice', channelId: 'UCv9Edl_WbtbPeURPtFDo-uA'},
@@ -71,7 +71,7 @@ try {
 }
 
   }
-
+// export streamer array, and write live streamers statistics and status to a json stored in /fetch folder
   module.exports = {
       streamers: streamList
   };

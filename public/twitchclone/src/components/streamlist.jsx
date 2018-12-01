@@ -11,6 +11,7 @@ export default class StreamList extends Component {
         }
     }
     async componentDidMount() {
+        // fetching streamer catalog from server
        const fetchData = await fetch('/streamers/all');
        const dataFetch = await fetchData.json();
        this.setState({list: dataFetch});
