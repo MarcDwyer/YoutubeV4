@@ -1,3 +1,4 @@
-
+.env
+.env-default
 fetches/
 node_modules/
