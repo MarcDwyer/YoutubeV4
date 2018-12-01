@@ -121,7 +121,6 @@ code {
   margin: 0 10px 0 10px;
   height: 100%;
   background-color: transparent;
-  margin-top: 10px;
 }
 .videonav {
   display: flex;
@@ -137,7 +136,7 @@ code {
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: calc(100% - 120px);
+  height: calc(100% - 110px);
   margin-left: auto;
   margin-right: auto;
   margin-top: 5px;

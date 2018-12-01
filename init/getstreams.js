@@ -3,7 +3,7 @@ const fs = require('fs');
 
 // server acts as middleman between Youtube API and client, this allows me to hide my api key and control requests.
 
-const API = 'AIzaSyBghJmzrFiYYr4ClicgFYHvN4ubVsnJxuE';
+const API = process.env.KEY;
 
 const streamList = [
     {name:'Ice', channelId: 'UCv9Edl_WbtbPeURPtFDo-uA'},
@@ -22,12 +22,13 @@ const streamList = [
     {name: 'Joe', channelId: 'UCzQUP1qoWDoEbmsQxvdjxgQ'},
     {name: 'Me', channelId: 'UCBawnZIFCiN_WNvsseGyjYA'},
     {name: 'Nasa', channelId: 'UCLA_DiR1FfKNvjuUpBHmylQ'},
-    {name: 'CBS', channelId: 'UC8p1vwvWtl6T73JiExfWs1g'}
+    {name: 'CBS', channelId: 'UC8p1vwvWtl6T73JiExfWs1g'},
+    {name: 'Pepper', channelId: 'UCdSr4xliU8yDyS1aGnCUMTA'}
 ];
 
 
     giveList();
-    setInterval(giveList, 500000)
+    setInterval(giveList, 850000)
     async function giveList() {
         console.log('running...');
 try {
@@ -41,9 +42,9 @@ try {
   fs.writeFile('./fetch/all.json', JSON.stringify(data), (err) => {
       if (err) throw err;
   })
-
+    console.log(data)
   const liveStreams = data.filter(item => !item.pageInfo.totalResults == 0);
-
+    console.log(liveStreams)
   const liveData = await Promise.all(liveStreams.map(async (item) => {
       const vidid = item.items[0].id.videoId;
       const fetchData = await fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics%2CliveStreamingDetails&id=${vidid}&key=${API}`);
