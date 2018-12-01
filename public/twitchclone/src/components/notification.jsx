@@ -23,7 +23,7 @@ export default class Notification extends Component {
             this.setState({updater: update})
             setTimeout(() => {
                 this.setState({nowLive: []});
-            }, 10000)
+            }, 8000)
          }
     }
 

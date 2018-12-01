@@ -32,12 +32,14 @@ export const VideoPlayer = (props) => {
         <div className="actualvideo">
         <iframe src={vidUrl} frameBorder="0" />
         </div>
+            <div className="topcontent">
         <div className="videocontent mt-2">
         <h4 className="ml-2">{theStream.title}</h4>
-        <span><i style={{color: 'red'}} className="fa fa-circle mr-2 mb-1"></i>{viewers} Viewers</span>
+        <span><i style={{color: 'red'}} className="fa fa-circle mr-2" />{viewers} Viewers</span>
         </div>
         <div className="body ml-2 mb-2">
         <p>{theStream.description}</p>
+        </div>
         </div>
         </div>
         </div>

@@ -23,7 +23,7 @@ export default class ActiveStreams extends Component {
         this.setState({live: newData});
 
         this.checker = setInterval(async () => {
-            console.log('runner')
+
             const fetchData = await fetch('/streamers/live');
             const data = await fetchData.json();
             const newData = _.mapKeys(data, 'channelId');

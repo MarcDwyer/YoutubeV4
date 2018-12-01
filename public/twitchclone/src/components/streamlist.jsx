@@ -37,7 +37,14 @@ export default class StreamList extends Component {
             const avatar = `https://s3.us-east-2.amazonaws.com/fetchappbucket/images/${stream.name}.jpg`;
             if (!show && index >= 10) return;
             return (
-            <div className="streamer" key={uuid()}>
+            <div className="streamer" key={uuid()}
+            onClick={() => {
+                console.log(stream.channelId)
+                const youtubeLink = `https://www.youtube.com/channel/${stream.channelId}`;
+                const win = window.open(youtubeLink, '_blank');
+                win.focus();
+            }}
+            >
             <div className="substreamer">
             <img src={avatar} alt="streamimage" className="ml-2" />
             <div className="streamname ml-2 ">
