@@ -1,4 +1,4 @@
-# YoutubeonNodeV2
+# YoutubeonNodeV4
 React-redux version
 
 
@@ -11,7 +11,7 @@ Key Files to look at on Node
 ./init/getstreams.js
 
 Front End (React-Redux)
-./public/reacttube/src
+./public/twitchclone/src
 
 
 You can also view this app live on fetcherapp.net
