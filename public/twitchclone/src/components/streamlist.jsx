@@ -23,7 +23,7 @@ export default class StreamList extends Component {
        return (
        <div>
            <div className="header">
-        <h5 className="ml-2 mt-2">Stream Catalog <small>{Object.keys(this.state.list).length}</small></h5>
+        <h5 className="ml-2 mt-2">Catalog <small>{Object.keys(this.state.list).length}</small></h5>
         <span className="showmore ml-2" onClick={() => this.setState({show: !show})}>{show ? 'Show less' : 'Show more'}</span>
         </div>
         <div className="actuallist">
@@ -36,11 +36,10 @@ export default class StreamList extends Component {
         const { list, show } = this.state;
         return list.map((stream, index) => {
             const avatar = `https://s3.us-east-2.amazonaws.com/fetchappbucket/images/${stream.name}.jpg`;
-            if (!show && index >= 10) return;
+            if (!show && index >= 6) return;
             return (
             <div className="streamer" key={uuid()}
             onClick={() => {
-                console.log(stream.channelId)
                 const youtubeLink = `https://www.youtube.com/channel/${stream.channelId}`;
                 const win = window.open(youtubeLink, '_blank');
                 win.focus();

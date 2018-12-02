@@ -48,15 +48,14 @@ export default class ActiveStreams extends Component {
 
     render() {
 
-        const { live, dark } = this.state;
-        console.log(dark)
+        const { live } = this.state;
         if (!live) return null;
 
         const darkTheme = this.state.dark ? 'darkTheme' : 'whiteTheme';
 
         return (
             <div>
-                <Navbar toggle={this.toggleTheme} theme={this.state.dark} />
+                <Navbar toggle={this.toggleTheme} theme={this.state.dark} live={live} />
             <div className={`maindiv ${darkTheme}`}>
             <div className="navigator">
                 <div className="streamlist active">
