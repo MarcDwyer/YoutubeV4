@@ -80,7 +80,7 @@ export default class ActiveStreams extends Component {
             const avatar = `https://s3.us-east-2.amazonaws.com/fetchappbucket/images/${stream.name}.jpg`;
             const { viewers } = stream;
             return (
-                <div className="streamer" key={uuid()} onClick={() => this.setState({stream: stream.channelId})}>
+                <div className="streamer mt-1" key={uuid()} onClick={() => this.setState({stream: stream.channelId})}>
                 <div className="substreamer">
                 <img src={avatar} alt="streamimage" className="ml-2" />
                 <div className="streamname ml-2 ">
