@@ -46,7 +46,7 @@ export default class Notification extends Component {
         return updater.map(stream => {
             console.log(stream)
             return (
-                <div className="flexme">
+                <div key={uuid()} className="flexme">
                     <span>{stream} is online!</span>
                 </div>
             );

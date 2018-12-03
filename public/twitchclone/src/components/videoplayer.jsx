@@ -6,13 +6,20 @@ export const VideoPlayer = (props) => {
     let theStream;
     if (!props.live) return null;
     // lots of guarding and handles streamers going offline and setting a new stream
-     theStream = props.live[Object.keys(props.live)[0]];
-
     if (props.onStream) {
         theStream = props.live[props.onStream];
-    } else if (!theStream || !theStream.vidId) {
+    } else if (!Object.values(props.live).length > 0) {
+        theStream = {
+            title: "You've been gnomed!",
+            description: "Me old Chum!!!",
+            viewers: '1337',
+            vidId: '6n3pFFPSlW4',
+            stats: {likeCount: '1337', dislikeCount: '1337'}
+        }
+    }   else if (!theStream || !theStream.vidId) {
         theStream = props.live[Object.keys(props.live)[0]];
     }
+
     const vidId = theStream.vidId;
     const vidUrl = `https://www.youtube.com/embed/${vidId}?autoplay=1&amp;showinfo=0&amp;modestbranding=1&amp;enablejsapi=1&amp`;
     const url = window.location.hostname;

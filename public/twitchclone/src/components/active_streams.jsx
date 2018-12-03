@@ -35,7 +35,7 @@ export default class ActiveStreams extends Component {
             const data = await fetchData.json();
             const newData = _.mapKeys(data, 'channelId');
             this.setState({live: newData});
-        }, 35000);
+        }, 60000);
     }
     // setting root variables to match theme
     componentDidUpdate(prevProps, prevState) {
@@ -47,7 +47,6 @@ export default class ActiveStreams extends Component {
     }
 
     render() {
-
         const { live } = this.state;
         if (!live) return null;
 
