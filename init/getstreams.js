@@ -22,8 +22,6 @@ const streamList = [
     {name: 'Pepper', channelId: 'UCdSr4xliU8yDyS1aGnCUMTA'}
 ];
 
-giveList();
-setInterval(giveList, 120000)
     async function giveList() {
         console.log('running...');
 try {

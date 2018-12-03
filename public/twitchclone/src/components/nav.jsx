@@ -7,7 +7,6 @@ export const Navbar = (props) => {
         total += +item.viewers;
         return total
     }, 0)
-    console.log(total)
   return (
 <nav className={`navbar navbar-expand-lg ${darkTheme}`}>
   <span className="navbar-brand">FetcherApp <i className="fa fa-toggle-on ml-2" onClick={() => props.toggle()}></i></span>

@@ -31,10 +31,9 @@ export default class Notification extends Component {
     render() {
 
         const {updater} = this.state;
-        if (!updater)
         if (!updater.length > 0) {
             return (
-                <div className="notify" style={this.styles.card}></div>
+                <div className='notify' style={this.styles.card}><div className="flexme"><span>No difference...</span></div></div>
             );
         }
 
@@ -43,10 +42,13 @@ export default class Notification extends Component {
         );
     }
     updateStream() {
-        const {updater} = this.state;
+        const { updater } = this.state;
         return updater.map(stream => {
+            console.log(stream)
             return (
-                <div key={uuid()} className="flexme" style={this.styles.card}><span>{stream}<br/> is online!</span></div>
+                <div className="flexme">
+                    <span>{stream} is online!</span>
+                </div>
             );
         })
     }

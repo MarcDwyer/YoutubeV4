@@ -74,7 +74,7 @@ code {
   cursor: pointer;
 }
 .streamer img {
-  border-radius: 50%;
+
   width: 40px;
   height: 40px;
 }
@@ -186,12 +186,12 @@ code {
   text-align: center;
   transition: 0.5s ease;
   bottom: 25px;
-  left: 20px;
+  left: -400px;
   font-size: 24px;
   z-index: 9999;
 }
 .act {
-  left: 25px;
+  left: 10px;
   z-index: 9999;
 }
 .flexme{
