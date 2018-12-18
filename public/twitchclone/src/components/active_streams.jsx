@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import StreamList from './streamlist';
 import { Navbar } from './nav';
-import { VideoPlayer } from './videoplayer';
+import VideoPlayer from './videoplayer';
 import Notifications from './notification'
-import _ from 'lodash';
 import uuid from 'uuid';
 
 export default class ActiveStreams extends Component {
@@ -24,8 +23,10 @@ export default class ActiveStreams extends Component {
         // fetching streamer data
         const fetchData = await fetch('/streamers/live');
         const data = await fetchData.json();
-
-        const newData = _.mapKeys(data, 'channelId');
+        const newData = data.reduce((obj, item) => {
+            obj[item.ChannelID] = item
+            return obj
+        },{})
         this.setState({live: newData});
 
         // streamer data updates, local state is set as an object
@@ -33,9 +34,12 @@ export default class ActiveStreams extends Component {
 
             const fetchData = await fetch('/streamers/live');
             const data = await fetchData.json();
-            const newData = _.mapKeys(data, 'channelId');
+            const newData = data.reduce((obj, item) => {
+                obj[item.ChannelID] = item
+                return obj
+            },{})
             this.setState({live: newData});
-        }, 60000);
+        }, 35000);
     }
     // setting root variables to match theme
     componentDidUpdate(prevProps, prevState) {
@@ -48,6 +52,7 @@ export default class ActiveStreams extends Component {
 
     render() {
         const { live } = this.state;
+        console.log(this.state)
         if (!live) return null;
 
         const darkTheme = this.state.dark ? 'darkTheme' : 'whiteTheme';
@@ -66,7 +71,7 @@ export default class ActiveStreams extends Component {
                     <StreamList theme={this.state.dark} />
                 </div>
             </div>
-            <VideoPlayer onStream={this.state.stream} live={this.state.live} theme={this.state.dark} />
+       <VideoPlayer onStream={this.state.stream} live={this.state.live} theme={this.state.dark} />
                 <Notifications active={this.state.live} />
             </div>
             </div>
@@ -74,19 +79,18 @@ export default class ActiveStreams extends Component {
     }
     renderStreams() {
         const { live } = this.state;
-       
         return Object.values(live).map(stream => {
-            const avatar = `https://s3.us-east-2.amazonaws.com/fetchappbucket/images/${stream.name}.jpg`;
-            const { viewers } = stream;
+            const avatar = `https://s3.us-east-2.amazonaws.com/fetchappbucket/images/${stream.Name}.jpg`;
+            const { Viewers } = stream;
             return (
-                <div className="streamer mt-1" key={uuid()} onClick={() => this.setState({stream: stream.channelId})}>
+                <div className="streamer mt-1" key={uuid()} onClick={() => this.setState({stream: stream.ChannelID})}>
                 <div className="substreamer">
                 <img src={avatar} alt="streamimage" className="ml-2" />
                 <div className="streamname ml-2 ">
-                <span>{stream.name}</span>
+                <span>{stream.Name}</span>
                 <span><small>is Playing IRL</small></span>
                 </div>
-                <span className="marginme"><small>{viewers} viewers</small></span>  
+                <span className="marginme"><small>{Viewers} viewers</small></span>  
                 </div>
                 </div>
             );

@@ -35,12 +35,12 @@ export default class StreamList extends Component {
     renderStreams(){
         const { list, show } = this.state;
         return list.map((stream, index) => {
-            const avatar = `https://s3.us-east-2.amazonaws.com/fetchappbucket/images/${stream.name}.jpg`;
+            const avatar = `https://s3.us-east-2.amazonaws.com/fetchappbucket/images/${stream.Name}.jpg`;
             if (!show && index >= 6) return;
             return (
             <div className="streamer" key={uuid()}
             onClick={() => {
-                const youtubeLink = `https://www.youtube.com/channel/${stream.channelId}`;
+                const youtubeLink = `https://www.youtube.com/channel/${stream.ChannelId}`;
                 const win = window.open(youtubeLink, '_blank');
                 win.focus();
             }}
@@ -48,7 +48,7 @@ export default class StreamList extends Component {
             <div className="substreamer">
             <img src={avatar} alt="streamimage" className="ml-2" />
             <div className="streamname ml-2 ">
-            <span>{stream.name}</span>
+            <span>{stream.Name}</span>
             </div>
             </div>
             </div>

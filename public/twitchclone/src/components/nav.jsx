@@ -4,7 +4,10 @@ import React from 'react'
 export const Navbar = (props) => {
   const darkTheme = props.theme ? 'darkTheme' : 'whiteTheme';
     const total = !props.live ? '0' : Object.values(props.live).reduce((total, item) => {
-        total += +item.viewers;
+        if (isNaN(item).viewers) {
+            return;
+        }
+        total += item.Viewers;
         return total
     }, 0)
   return (

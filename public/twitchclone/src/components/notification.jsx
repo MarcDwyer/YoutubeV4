@@ -23,8 +23,8 @@ export default class Notification extends Component {
             const update = _.difference(newnames, oldnames);
             this.setState({updater: update})
             setTimeout(() => {
-                this.setState({nowLive: []});
-            }, 8000)
+                this.setState({updater: []});
+            }, 8500)
          }
     }
 

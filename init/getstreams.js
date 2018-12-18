@@ -4,7 +4,6 @@ const fs = require('fs');
 // server acts as middleman between Youtube API and client, this allows me to hide my api key and control requests.
 
 const API = process.env.KEY;
-console.log(API)
 const streamList = [
     {name:'Ice', channelId: 'UCv9Edl_WbtbPeURPtFDo-uA'},
     {name:'Mixhound', channelId: 'UC_jxnWLGJ2eQK4en3UblKEw'},
@@ -22,6 +21,7 @@ const streamList = [
     {name: 'Pepper', channelId: 'UCdSr4xliU8yDyS1aGnCUMTA'}
 ];
 
+giveList()
     async function giveList() {
         console.log('running...');
 try {
@@ -35,7 +35,6 @@ try {
   fs.writeFile('./fetch/all.json', JSON.stringify(data), (err) => {
       if (err) throw err;
   })
-    console.log(data)
   const liveStreams = data.filter(item => !item.pageInfo.totalResults == 0);
 
   const liveData = await Promise.all(liveStreams.map(async (item) => {

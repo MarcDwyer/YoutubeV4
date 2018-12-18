@@ -1,59 +1,75 @@
-import React from 'react'
+import React, { Component } from 'react'
 
-
-export const VideoPlayer = (props) => {
-    const darkTheme = props.theme ? 'darkTheme' : 'whiteTheme';
-    let theStream;
-    if (!props.live) return null;
-    // lots of guarding and handles streamers going offline and setting a new stream
-    if (props.onStream) {
-        theStream = props.live[props.onStream];
-    } else if (!Object.values(props.live).length > 0) {
-        theStream = {
-            title: "You've been gnomed!",
-            description: "Me old Chum!!!",
-            viewers: '1337',
-            vidId: '6n3pFFPSlW4',
-            stats: {likeCount: '1337', dislikeCount: '1337'}
+ export default class VideoPlayer extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            theStream: null
         }
-    }   else if (!theStream || !theStream.vidId) {
-        theStream = props.live[Object.keys(props.live)[0]];
+    }
+    componentDidMount() {
+        if (this.props.live) {
+         this.setState({theStream: Object.values(this.props.live)[0]})
+        }
+    }
+     componentDidUpdate(prevProps, prevState, snapshot) {
+        const { live, onStream } = this.props;
+        const { theStream } = this.state;
+       // const { theStream } = this.state
+         if (onStream && !live[onStream]) {
+             console.log('first')
+            this.setState({theStream: live[Object.keys(live)[0]]})
+        }
+       else if (prevProps.onStream != this.props.onStream) {
+        console.log('second')
+            this.setState({ theStream: live[onStream] })
+        }
     }
 
-    const vidId = theStream.vidId;
-    const vidUrl = `https://www.youtube.com/embed/${vidId}?autoplay=1&amp;showinfo=0&amp;modestbranding=1&amp;enablejsapi=1&amp`;
-    const url = window.location.hostname;
-    const chatUrl = `https://www.youtube.com/live_chat?v=${vidId}&embed_domain=${url}`;
-    const { viewers } = theStream;
 
-    return (
+     render() {
+        console.log(this.state)
+        console.log(this.props)
+        const { theStream } = this.state
 
-        <div className="contentmain" style={!props.theme ? {backgroundColor: '#D6D6D6'} : {backgroundColor: 'black'}}>
-        <div className="videoparent">
-        <div className={`videonav ${darkTheme}`}>
-        <div className="marginnav">
-        <span><i className="fa fa-thumbs-up"></i> {theStream.stats.likeCount}</span>
-        <span><i className="fa fa-thumbs-down ml-4"></i> {theStream.stats.dislikeCount}</span>
-        </div>
-        </div>
-        <div className={`margincontent ${darkTheme}`}>
-        <div className="actualvideo">
-        <iframe src={vidUrl} frameBorder="0" />
-        </div>
-            <div className="topcontent">
-        <div className="videocontent mt-2">
-        <h4 className="ml-2">{theStream.title}</h4>
-        <span><i style={{color: 'red'}} className="fa fa-circle mr-2" />{viewers} Viewers</span>
-        </div>
-        <div className="body ml-2 mb-2">
-        <p>{theStream.description}</p>
-        </div>
-        </div>
-        </div>
-        </div>
-        <div className="chatter">
-         <iframe src={chatUrl} frameBorder="0" />
+        if (!theStream) return null
+        const { Likes, Dislikes, VideoID, Viewers, Title } = theStream
+
+        const darkTheme = this.props.theme ? 'darkTheme' : 'whiteTheme';
+        const vidUrl = `https://www.youtube.com/embed/${VideoID}?autoplay=1&amp;showinfo=0&amp;modestbranding=1&amp;enablejsapi=1&amp`;
+        const url = window.location.hostname;
+        const chatUrl = `https://www.youtube.com/live_chat?v=${VideoID}&embed_domain=${url}`;
+
+        
+        return (
+
+            <div className="contentmain" style={!this.props.theme ? {backgroundColor: '#D6D6D6'} : {backgroundColor: 'black'}}>
+                <div className="videoparent">
+                    <div className={`videonav ${darkTheme}`}>
+                        <div className="marginnav">
+                            <span><i className="fa fa-thumbs-up"></i> { Likes }</span>
+                            <span><i className="fa fa-thumbs-down ml-4"></i> { Dislikes }</span>
+                        </div>
+                    </div>
+                    <div className={`margincontent ${darkTheme}`}>
+                        <div className="actualvideo">
+                            <iframe src={vidUrl} frameBorder="0" />
+                        </div>
+                        <div className="topcontent">
+                            <div className="videocontent mt-2">
+                                <h4 className="ml-2">{ Title }</h4>
+                                <span><i style={{color: 'red'}} className="fa fa-circle mr-2" />{ Viewers } Viewers</span>
+                            </div>
+                            <div className="body ml-2 mb-2">
+                                <p>{theStream.Description}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="chatter">
+                    <iframe src={chatUrl} frameBorder="0" />
+                </div>
             </div>
-            </div>
-    );
+        );
+    }
 }
